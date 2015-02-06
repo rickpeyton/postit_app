@@ -1,9 +1,25 @@
+<p class='pull-right'>
+  [<%= link_to 'Edit Post', edit_post_path(@post) %>]
+</p>
 <p>
   <%= render @post.categories %>
 </p>
+<%= link_to @post.title, fix_url(@post.url) %>
 <%= render 'shared/content_title', title: @post.title %>
 <p>
   <%= @post.description %>
 </p>
 <hr />
-(<%= link_to 'Edit Post', edit_post_path(@post) %>)
+<%= form_for [@post, @comment] do |f| %>
+  <%= render 'shared/form_error', error_object: @comment %>
+  <%= f.text_area :body %>
+  <br>
+  <%= f.submit 'Create Comment', class: 'btn btn-primary' %>
+<% end %>
+<hr />
+<% @post.comments.each do |comment| %>
+  <div class='well'>
+    <p><%= comment.body %></p>
+    <p>by <%= comment.creator.username %></p>
+  </div>
+<% end %>
