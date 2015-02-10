@@ -6,4 +6,8 @@ module ApplicationHelper
       "http://#{str}"
     end
   end
+
+  def format_datetime(dt)
+    dt.strftime('%m/%d/%Y at %H:%M%P %Z')
+  end
 end

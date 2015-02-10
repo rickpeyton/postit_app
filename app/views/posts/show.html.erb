@@ -12,14 +12,21 @@
 <hr />
 <%= form_for [@post, @comment] do |f| %>
   <%= render 'shared/form_error', error_object: @comment %>
-  <%= f.text_area :body %>
+  <div class='control-group'>
+    <%= f.label :body, 'Leave a Comment' %>
+    <%= f.text_area :body, rows: 3, class: 'span4' %>
+  </div>
   <br>
   <%= f.submit 'Create Comment', class: 'btn btn-primary' %>
 <% end %>
 <hr />
+<h5>Comments:</h5>
 <% @post.comments.each do |comment| %>
-  <div class='well'>
-    <p><%= comment.body %></p>
-    <p>by <%= comment.creator.username %></p>
+  <div class='well span8'>
+    <em><%= comment.body %></em>
+    <p>
+      <span class='quiet'>by</span> <%= comment.creator.username %>
+      <small>at <%= format_datetime(comment.created_at) %></small>
+    </p>
   </div>
 <% end %>
