@@ -26,5 +26,5 @@
 <hr />
 <h5>Comments:</h5>
 <% @post.comments.each do |comment| %>
-  <%= render 'shared/comments', comment: comment, post_title: false %>
+  <%= render 'shared/comments', comment: comment %>
 <% end %>
