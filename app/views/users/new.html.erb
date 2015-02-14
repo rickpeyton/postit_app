@@ -1,15 +1,2 @@
-<%= render 'shared/form_error', error_object: @user %>
-<h4>Register</h4>
-<div class='well'>
-  <%= form_for @user do |f| %>
-    <div class='control-group'>
-      <%= f.label :username %>
-      <%= f.text_field :username %>
-    </div>
-    <div class='control-group'>
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-    </div>
-    <%= f.submit 'Create Account', class: 'btn btn-primary' %>
-  <% end %>
-</div>
+<%= render 'shared/content_title', title: 'Register New User' %>
+<%= render 'form' %>

@@ -26,11 +26,5 @@
 <hr />
 <h5>Comments:</h5>
 <% @post.comments.each do |comment| %>
-  <div class='well span8'>
-    <em><%= comment.body %></em>
-    <p>
-      <span class='quiet'>by</span> <%= comment.creator.username %>
-      <small>at <%= format_datetime(comment.created_at) %></small>
-    </p>
-  </div>
+  <%= render 'shared/comments', comment: comment, post_title: false %>
 <% end %>

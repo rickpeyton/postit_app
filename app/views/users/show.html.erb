@@ -1,0 +1,23 @@
+<%= render 'shared/content_title', title: "Profile: #{@user.username}" %>
+<h5><%= @user.username %>'s Activity</h5>
+
+<div role="tabpanel">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#posts" aria-controls="posts" role="tab" data-toggle="tab">Posts (<%= @user.posts.count %>)</a></li>
+    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments (<%= @user.comments.count %>)</a></li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="posts">
+      <% @user.posts.each do |post| %>
+        <%= render 'posts/post', post: post %>
+      <% end %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="comments">
+      <% @user.comments.each do |comment| %>
+        <%= render 'shared/comments', comment: comment, post_title: true %>
+      <% end %>
+    </div>
+  </div>
+</div>
