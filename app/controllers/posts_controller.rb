@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update]
 
   def index
     @posts = Post.all.sort_by{ |x| x.post_vote_count }.reverse
@@ -55,5 +56,12 @@ class PostsController < ApplicationController
 
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def require_same_user
+      if current_user != @post.creator
+        flash[:error] = 'You are not allowed to do that.'
+        redirect_to root_path
+      end
     end
 end
