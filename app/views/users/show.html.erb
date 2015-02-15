@@ -16,12 +16,12 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="posts">
-      <% @user.posts.each do |post| %>
+      <% @user.posts.sort_by{ |x| x.post_vote_count }.reverse.each do |post| %>
         <%= render 'posts/post', post: post %>
       <% end %>
     </div>
     <div role="tabpanel" class="tab-pane" id="comments">
-      <% @user.comments.each do |comment| %>
+      <% @user.comments.sort_by { |x| x.comment_vote_total }.reverse.each do |comment| %>
         <%= render 'shared/comments', comment: comment, post_title: true %>
       <% end %>
     </div>
