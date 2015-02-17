@@ -1,0 +1,11 @@
+<% if @vote.valid? %>
+  $('#<%= "comment_#{@comment.id}_votes" %>').html('<%= "#{pluralize(@comment.comment_vote_total, 'vote')}" %>')
+<% else %>
+  <% vote = @comment.votes.where(user_id: current_user).first.vote %>
+  <% if vote == true
+    vote = 'UP'
+  else
+    vote = 'DOWN'
+  end %>
+  alert('You already <%= vote %> voted the comment by "<%= @comment.creator.username %>". You may only vote once per comment.');
+<% end %>

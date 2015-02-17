@@ -1,0 +1,11 @@
+<% if @vote.valid? %>
+  $('#<%= "post_#{@post.id}_votes" %>').html('<%= "#{pluralize(@post.post_vote_count, 'vote')}" %>')
+<% else %>
+  <% vote = @post.votes.where(user_id: current_user).first.vote %>
+  <% if vote == true
+    vote = 'UP'
+  else
+    vote = 'DOWN'
+  end %>
+  alert('You already <%= vote %> voted "<%= @post.title %>". You may only vote once per post.');
+<% end %>
