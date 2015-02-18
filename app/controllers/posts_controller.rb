@@ -18,12 +18,13 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.creator = current_user
-    if @post.save
-      flash[:notice] = "Your post was created"
-      redirect_to post_path(@post)
-    else
-      render :new
-    end
+    @post.slug = @post.create_slug
+    # if @post.save
+    #   flash[:notice] = "Your post was created"
+    #   redirect_to post_path(@post)
+    # else
+    #   render :new
+    # end
   end
 
   def edit; end
@@ -60,7 +61,7 @@ class PostsController < ApplicationController
     end
 
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.find_by(slug: params[:id])
     end
 
     def require_same_user
