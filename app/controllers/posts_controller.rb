@@ -18,13 +18,12 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.creator = current_user
-    @post.slug = @post.create_slug
-    # if @post.save
-    #   flash[:notice] = "Your post was created"
-    #   redirect_to post_path(@post)
-    # else
-    #   render :new
-    # end
+    if @post.save
+      flash[:notice] = "Your post was created"
+      redirect_to post_path(@post)
+    else
+      render :new
+    end
   end
 
   def edit; end

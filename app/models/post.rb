@@ -9,38 +9,46 @@ class Post < ActiveRecord::Base
   validates :url, presence: true, uniqueness: true
   validates :category_ids, presence: true
 
+  after_create :create_slug
+
   def to_param
     "#{self.slug}"
   end
 
   def create_slug
-    binding.pry
-    title = self.title
-    trim_non_url_characters(title)
+    self.slug = self.title.downcase
+    trim_non_url_characters
+    trim_repeat_hyphens
+    trim_leading_and_trailing_hyphen
+    check_for_slug_uniqueness
   end
 
-  def trim_non_url_characters(title)
-    title.gsub(/[^a-z0-9\-]/, '-').trim_repeat_hyphen
+  def trim_non_url_characters
+    self.slug.gsub!(/[^a-z0-9\-]/, '-')
   end
 
   def trim_repeat_hyphens
-    self.gsub(/-{2,}/, '-').trim_trailing_hyphen
+    self.slug.gsub!(/-{2,}/, '-')
   end
 
-  def trim_trailing_hyphen
-    self.gsub(/\-$/, '').check_for_slug_uniqueness
+  def trim_leading_and_trailing_hyphen
+    self.slug.gsub!(/(^-)|(-$)/, '')
   end
 
   def check_for_slug_uniqueness
-    if Post.exists?(slug: self)
-      self.add_id_to_end_of_slug
+    if Post.exists?(slug: self.slug)
+      self.add_digit_to_end_of_slug
     else
       return self
     end
   end
 
   def add_digit_to_end_of_slug
-    self + @post.id.to_s
+    counter = 2
+    while Post.exists?(slug: "#{self.slug}-#{counter}")
+      counter += 1
+    end
+    self.slug = self.slug + "-#{counter}"
   end
 
   def post_vote_count
