@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
   validates :url, presence: true, uniqueness: true
   validates :category_ids, presence: true
 
-  after_create :create_slug
+  after_validation :create_slug, on: :create
 
   def to_param
     "#{self.slug}"
