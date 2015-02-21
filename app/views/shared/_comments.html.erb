@@ -7,7 +7,7 @@
         <i class="icon-arrow-up"></i>
       <% end %>
     <% end %>
-    <div id='comment_<%= comment.id %>_votes'><%= pluralize(comment.comment_vote_total, 'vote') %></div>
+    <div id='comment_<%= comment.id %>_votes'><%= pluralize(comment.vote_count, 'vote') %></div>
     <% if logged_in? %>
       <%= link_to vote_post_comment_path(comment.post,comment, vote: false),
             method: :post, remote: true do %>

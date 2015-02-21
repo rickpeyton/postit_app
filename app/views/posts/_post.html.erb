@@ -7,7 +7,7 @@
         <i class="icon-arrow-up"></i>
       <% end %>
     <% end %>
-    <div id='<%= "post_#{post.slug}_votes" %>'><%= "#{pluralize(post.post_vote_count, 'vote')}" %></div>
+    <div id='<%= "post_#{post.slug}_votes" %>'><%= "#{pluralize(post.vote_count, 'vote')}" %></div>
     <% if logged_in? %>
       <%= link_to vote_post_path(post, vote: false),
         method: :post,
