@@ -8,6 +8,9 @@ module ApplicationHelper
   end
 
   def format_datetime(dt)
+    if logged_in? && current_user.time_zone.present?
+      dt = dt.in_time_zone(current_user.time_zone)
+    end
     dt.strftime('%m/%d/%Y at %H:%M%P %Z')
   end
 end
