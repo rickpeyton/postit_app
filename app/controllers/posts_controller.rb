@@ -6,10 +6,28 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.sort_by{ |x| x.vote_count }.reverse
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @posts, except: [:id, :user_id]
+      end
+      format.xml do
+        render xml: @posts, except: [:id, :user_id]
+      end
+    end
   end
 
   def show
     @comment = Comment.new
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @post, except: [:id, :user_id]
+      end
+      format.xml do
+        render xml: @post, except: [:id, :user_id]
+      end
+    end
   end
 
   def new
