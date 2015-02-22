@@ -1,5 +1,5 @@
 <% if @vote.valid? %>
-  $('#<%= "post_#{@post.slug}_votes" %>').html('<%= "#{pluralize(@post.post_vote_count, 'vote')}" %>')
+  $('#<%= "post_#{@post.slug}_votes" %>').html('<%= "#{pluralize(@post.vote_count, 'vote')}" %>')
 <% else %>
   <% vote = @post.votes.where(user_id: current_user).first.vote %>
   <% if vote == true
