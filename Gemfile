@@ -13,6 +13,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
+gem 'voteable_rickpeyton'
+gem 'sluggable_rickpeyton'
 
 group :doc do
   gem 'sdoc', require: false
