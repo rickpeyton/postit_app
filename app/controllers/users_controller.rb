@@ -39,7 +39,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :password, :time_zone)
+    params.require(:user).permit(:username, :password, :time_zone, :two_factor,
+                                 :phone, :pin)
   end
 
   def require_same_user

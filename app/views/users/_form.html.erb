@@ -15,6 +15,16 @@
             ActiveSupport::TimeZone.us_zones,
             default: Time.zone.name) %>
     </div>
+    <div class='control-group form-inline checkbox'>
+      <%= f.label :two_factor, 'Use Two Factor Authentication?' %>
+      <%= f.check_box :two_factor %>
+    </div>
+    <div class='control-group'>
+      <%= f.label :phone do %>
+        Phone Number <small>(For Two Factor Authentication)</small>
+      <% end %>
+      <%= f.text_field :phone %>
+    </div>
     <%= f.submit @user.new_record? ? 'Create Account' : 'Update Profile', class: 'btn btn-primary' %>
   <% end %>
 </div>

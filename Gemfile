@@ -15,6 +15,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'voteable_rickpeyton'
 gem 'sluggable_rickpeyton'
+gem 'twilio-ruby'
 
 group :doc do
   gem 'sdoc', require: false

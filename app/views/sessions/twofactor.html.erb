@@ -1,0 +1,11 @@
+<div class='well'>
+  <h5>Two Factor Authentication Enabled for <%= @user.username %></h5>
+  <small>We have sent you a text with a 5 digit code. Please enter it below.</small>
+  <p>
+  <p>Testing Login Code: <%= @user.pin %></p>
+    <form class="form-inline">
+      <input type="text" class="input-small" placeholder="5 Digit Code">
+      <button type="submit" class="btn">Sign in</button>
+    </form>
+  </p>
+</div>
