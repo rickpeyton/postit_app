@@ -17,4 +17,5 @@ PostitTemplate::Application.routes.draw do
     post '/login', to: 'sessions#create'
     get '/logout', to: 'sessions#destroy'
     get '/twofactor', to: 'sessions#twofactor'
+    post '/twofactor', to: 'sessions#twofactor'
 end

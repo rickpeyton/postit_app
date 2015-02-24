@@ -13,7 +13,23 @@ class SessionsController < ApplicationController
   end
 
   def twofactor
-    @user = User.find_by(username: session[:username])
+    if session[:username].present?
+      @user = User.find_by(username: session[:username])
+    else
+      access_denied
+    end
+
+    if request.post?
+      reset_session
+      if params[:pin] == @user.pin
+        @user.update pin: nil
+        complete_login
+      else
+        flash[:error] = 'Pin is incorrect. Please log in again'
+        @user.update pin: nil
+        redirect_to login_path
+      end
+    end
   end
 
   def destroy
@@ -34,13 +50,29 @@ class SessionsController < ApplicationController
         session[:username] = @user.username
         redirect_to twofactor_path
       else
-        session[:user_id] = @user.id
-        flash[:notice] = 'You have logged in successfully'
-        redirect_to root_path
+        complete_login
       end
+    end
+
+    def complete_login
+      session[:user_id] = @user.id
+      flash[:notice] = 'You have logged in successfully'
+      redirect_to root_path
     end
 
     def generate_twofactor_code!
       @user.update(pin: rand(10 ** 5).to_s)
+      twillio
+    end
+
+    def twillio
+      account_sid = ENV['TWILLIO_SID']
+      auth_token = ENV['TWILLIO_TOKEN']
+      @client = Twilio::REST::Client.new account_sid, auth_token
+      @client.account.messages.create({
+        :from => '+14804852779',
+        :to => @user.phone,
+        :body => "#{@user.username}, Your Postit login pin is #{@user.pin}",
+      })
     end
 end

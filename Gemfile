@@ -15,7 +15,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'voteable_rickpeyton'
 gem 'sluggable_rickpeyton'
-gem 'twilio-ruby'
 
 group :doc do
   gem 'sdoc', require: false
@@ -25,7 +24,11 @@ group :development do
   gem 'quiet_assets'
   gem 'pry'
   gem 'sqlite3'
+  gem 'dotenv-rails'
 end
+
+# Needs to come after dotenv-rails ~ maybe
+gem 'twilio-ruby'
 
 group :production do
   gem 'pg'
